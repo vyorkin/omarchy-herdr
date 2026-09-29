@@ -805,9 +805,10 @@ Panel {
   // seconds old. Faster while the panel is open, because the agent states in
   // it are what you came to read, and faster while anything is live, because
   // that is the only time the badge colour can go stale on its own. Idle costs
-  // one poll every twenty seconds and catches the moment you start something.
+  // one poll a minute, which is enough to catch the moment you start
+  // something without paying for a poll every few seconds.
   Timer {
-    interval: root.opened ? 3000 : (root.badgeActive ? 5000 : 20000)
+    interval: root.opened ? 5000 : (root.badgeActive ? 15000 : 60000)
     running: true
     repeat: true
     triggeredOnStart: true
